@@ -1,0 +1,26 @@
+ext {
+// Android Config
+// --------------------------------------------------------------------------------
+    compileSdkVersion = 24 // SDK编译版本
+    buildToolsVersion = '24.0.2' // 构建工具版本
+    minSdkVersion = 19 // 最小SDK版本
+    targetSdkVersion = 24 // 目标SDK版本
+
+    multiDexEnabled = true
+    abortOnLintError = false
+    checkLintRelease = false
+
+// Libraries
+// --------------------------------------------------------------------------------
+    rxJavaVersion = '1.1.9'
+
+// Testing
+// --------------------------------------------------------------------------------
+    junitVersion = '4.12'
+
+// Module
+// --------------------------------------------------------------------------------
+    driverDependencies = [
+            rxJava: "io.reactivex:rxjava:${rxJavaVersion}"
+    ]
+}

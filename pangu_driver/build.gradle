@@ -1,0 +1,86 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.driverVersionCode
+        versionName rootProject.ext.driverVersionName
+    }
+}
+
+dependencies {
+    def driverDependencies = rootProject.ext.driverDependencies
+
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile driverDependencies.rxJava
+}
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging rootProject.ext.pomPackaging
+                name rootProject.ext.driverPomDescription
+                url rootProject.ext.pomUrl
+                // Set your license
+                licenses {
+                    license {
+                        name rootProject.ext.pomLicenceName
+                        url rootProject.ext.pomLicenceUrl
+                    }
+                }
+                developers {
+                    developer {
+                        id rootProject.ext.pomDeveloperId
+                        name rootProject.ext.pomDeveloperName
+                        email rootProject.ext.pomDeveloperEmail
+                    }
+                }
+                scm {
+                    url rootProject.ext.pomUrl
+                    connection rootProject.ext.pomDeveloperName
+                }
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    options.encoding = 'UTF-8'
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+bintray {
+    user = rootProject.ext.bintrayUser
+    key = rootProject.ext.bintrayApiKey
+    configurations = rootProject.ext.bintrayConfigurations
+    pkg {
+        repo = rootProject.ext.bintrayRepo
+        name = rootProject.ext.driverBintrayName
+        websiteUrl = rootProject.ext.pomUrl
+        licenses = rootProject.ext.bintrayLicenses
+        publish = true
+    }
+}
