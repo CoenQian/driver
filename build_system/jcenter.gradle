@@ -1,7 +1,7 @@
 ext {
 // 通用
 // --------------------------------------------------------------------------------
-    group = 'com.fcbox.pangu'
+    groupId = 'com.fcbox.pangu'
 
     pomPackaging = 'aar'
 
@@ -28,5 +28,5 @@ ext {
     driverPomDescription = 'Pangu driver'
     driverVersionCode = 100
     driverVersionName = '1.0.0'
-    driverBintrayName = 'driver'
+    driverBintrayName = 'pangu-driver'
 }

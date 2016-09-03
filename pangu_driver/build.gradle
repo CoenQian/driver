@@ -2,6 +2,9 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
+version = rootProject.ext.driverVersionName
+group = rootProject.ext.groupId
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -44,7 +47,7 @@ install {
                 }
                 scm {
                     url rootProject.ext.pomUrl
-                    connection rootProject.ext.pomDeveloperName
+                    connection rootProject.ext.pomGitUrl
                 }
             }
         }
@@ -79,8 +82,13 @@ bintray {
     pkg {
         repo = rootProject.ext.bintrayRepo
         name = rootProject.ext.driverBintrayName
-        websiteUrl = rootProject.ext.pomUrl
+        vcsUrl = rootProject.ext.pomGitUrl
         licenses = rootProject.ext.bintrayLicenses
-        publish = true
+
+        version {
+            name = rootProject.ext.driverVersionName
+            desc = rootProject.ext.driverVersionName
+            vcsTag = rootProject.ext.driverVersionName
+        }
     }
 }
