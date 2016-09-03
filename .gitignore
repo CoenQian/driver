@@ -36,3 +36,5 @@ captures/
 
 # keystore
 /build_system/jcenter.gradle
+/build_system/dependencies.gradle
+/build_system/
